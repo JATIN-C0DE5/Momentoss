@@ -11,6 +11,7 @@ const CardsPage = () => {
   const [formData, setFormData] = useState({
     selectedDesign: null,
     customerName: '',
+    customerNumber: '',
     recipientName: '',
     pin: '',
     numberOfPhotos: 3,
@@ -143,6 +144,21 @@ const CardsPage = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Your Phone Number
+                </label>
+                <input
+                  type="number"
+                  value={formData.customerNumber}
+                  onChange={(e) =>
+                    setFormData({ ...formData, customerNumber: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Recipient's Name
                 </label>
                 <input
@@ -174,7 +190,7 @@ const CardsPage = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Number of Photos
+                  Number of Photos/Memories
                 </label>
                 <div className="flex items-center space-x-4">
                   <button
@@ -195,7 +211,7 @@ const CardsPage = () => {
                     onClick={() =>
                       setFormData({
                         ...formData,
-                        numberOfPhotos: Math.min(10, formData.numberOfPhotos + 1)
+                        numberOfPhotos: Math.min(5, formData.numberOfPhotos + 1)
                       })
                     }
                     className="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold hover:bg-pink-600"
@@ -205,7 +221,7 @@ const CardsPage = () => {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
@@ -219,7 +235,7 @@ const CardsPage = () => {
                     Add song, movie, or other special links
                   </span>
                 </label>
-              </div>
+              </div> */}
             </div>
           )}
 
@@ -233,7 +249,7 @@ const CardsPage = () => {
             />
           )}
 
-          {currentStep === 4 && formData.addSongMovie && (
+          {currentStep === 4 && (
             <LinksForm
               links={formData.links}
               onLinksChange={(links) =>

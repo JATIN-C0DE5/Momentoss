@@ -9,18 +9,16 @@ const LinksForm = ({ links, onLinksChange }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="text-center mb-8">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">
-          Add Special Links
-        </h3>
+        
         <p className="text-gray-600">
           Share songs, movies, or other special links that hold meaning for you both
         </p>
       </div>
 
       {/* Song Link */}
-      <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-6">
+      <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-3">
         <div className="flex items-center mb-4">
           <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
             <Music className="w-5 h-5 text-white" />
@@ -40,7 +38,7 @@ const LinksForm = ({ links, onLinksChange }) => {
       </div>
 
       {/* Movie Link */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3">
         <div className="flex items-center mb-4">
           <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mr-3">
             <Film className="w-5 h-5 text-white" />
@@ -60,7 +58,7 @@ const LinksForm = ({ links, onLinksChange }) => {
       </div>
 
       {/* Other Link */}
-      <div className="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-6">
+      <div className="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-3">
         <div className="flex items-center mb-4">
           <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-3">
             <LinkIcon className="w-5 h-5 text-white" />
@@ -114,17 +112,6 @@ const LinksForm = ({ links, onLinksChange }) => {
           </div>
         </div>
       )}
-
-      {/* Tips */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-        <h5 className="font-medium text-yellow-800 mb-2">💡 Tips for great links:</h5>
-        <ul className="text-sm text-yellow-700 space-y-1">
-          <li>• Use direct links that work on mobile devices</li>
-          <li>• Test your links before submitting</li>
-          <li>• Consider links that don't require login when possible</li>
-          <li>• YouTube and Spotify links work great!</li>
-        </ul>
-      </div>
     </div>
   );
 };

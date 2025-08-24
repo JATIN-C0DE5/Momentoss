@@ -37,7 +37,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative px-4 py-20 text-center">
+      <section className="relative px-4 py-10 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
@@ -48,8 +48,7 @@ const HomePage = () => {
           </h1>
           
           <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Create personalized NFC gift cards that unlock beautiful memory pages. 
-            Perfect for couples, friends, and family moments that matter.
+            Personalized NFC gift cards. Perfect for couples, friends, and family moments.
           </p>
 
           {/* Animated Card Stack */}
