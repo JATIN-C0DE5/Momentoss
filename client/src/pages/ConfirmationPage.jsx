@@ -15,7 +15,7 @@ const ConfirmationPage = () => {
     recipientName: 'Jane Smith',
     designName: 'Romantic Hearts',
     numberOfPhotos: 3,
-    generatedLink: `https://www.momentos.in/gcard/${id}`,
+    generatedLink: `https://www.momentoss.in/gcard/${id}`,
     estimatedDelivery: '3-5 business days',
     orderDate: new Date().toLocaleDateString()
   };
