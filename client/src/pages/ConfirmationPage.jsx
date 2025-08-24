@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { CheckCircle, Heart, Truck, Smartphone, Copy, Download } from 'lucide-react';
 
 const ConfirmationPage = () => {
   // Simulating useParams since we can't import react-router-dom
-  const id = 'ABC123';
+  const {id}=useParams(); 
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
 

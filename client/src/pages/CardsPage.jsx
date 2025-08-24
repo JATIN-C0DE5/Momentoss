@@ -4,6 +4,8 @@ import CardGrid from '../components/CardGrid';
 import MemoryUploadForm from '../components/MemoryUploadForm';
 import LinksForm from '../components/LinksForm';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import createCard from "../appwrite/createCrad"
+
 
 const CardsPage = () => {
   const navigate = useNavigate();
@@ -45,20 +47,44 @@ const CardsPage = () => {
     }
   };
 
+  // const handleSubmit = async () => {
+  //   try {
+  //     // TODO: Replace with actual API call when backend is ready
+  //     console.log('Submitting form data:', formData);
+      
+  //     // Simulate API call
+  //     const mockCardId = 'card_' + Date.now();
+      
+  //     // Navigate to confirmation page
+  //     navigate(`/confirmation/${mockCardId}`);
+  //   } catch (error) {
+  //     console.error('Error creating card:', error);
+  //   }
+  // };
+  // ////////////////////////////////////////
   const handleSubmit = async () => {
     try {
-      // TODO: Replace with actual API call when backend is ready
-      console.log('Submitting form data:', formData);
-      
-      // Simulate API call
-      const mockCardId = 'card_' + Date.now();
-      
-      // Navigate to confirmation page
-      navigate(`/confirmation/${mockCardId}`);
+      console.log("Submitting form data:", formData);
+
+      // 🔗 Call our Appwrite function
+      const res = await createCard(formData);
+
+      if (res.success) {
+        // Navigate to confirmation page with real document ID
+        navigate(`/confirmation/${res.doc.$id}`);
+      } else {
+        console.error("Error creating card:", res.error);
+        alert("Failed to create card: " + res.error);
+      }
     } catch (error) {
-      console.error('Error creating card:', error);
+      console.error("Unexpected error creating card:", error);
+      alert("Unexpected error occurred: " + error.message);
     }
   };
+
+  ////////////////////////////////////////////////
+
+
 
   const isStepValid = () => {
     switch (currentStep) {

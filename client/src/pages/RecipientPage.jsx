@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import SwipeableStack from '../components/SwipeableStack';
+import SwipeableStack from '../components/SwipeableStack.jsx';
 import { Lock, Heart, Music, Film, Link as LinkIcon, ArrowRight, Feather } from 'lucide-react';
-
+import getGiftCard from "../appwrite/get.js"
 const RecipientPage = () => {
   const { hash } = useParams();
   const navigate = useNavigate();
@@ -12,33 +12,34 @@ const RecipientPage = () => {
   const [error, setError] = useState('');
   const [cardData, setCardData] = useState(null);
 
-  // TODO: Replace with actual API call when backend is ready
-  const mockCardData = {
-    senderName: 'John',
-    recipientName: 'Jane',
-    memories: [
-      {
-        id: 1,
-        image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=600&fit=crop',
-        caption: 'Our first date at the coffee shop. I knew you were special from the moment you laughed at my terrible joke! ☕️❤️'
-      },
-      {
-        id: 2,
-        image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=600&fit=crop',
-        caption: 'That sunset we watched together on the beach. You said it was beautiful, but I was only looking at you. 🌅'
-      },
-      {
-        id: 3,
-        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=600&fit=crop',
-        caption: 'When we got caught in the rain and danced anyway. Perfect moments happen in imperfect weather! 🌧️💃'
-      }
-    ],
-    links: {
-      song: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC',
-      movie: 'https://www.netflix.com/title/70136120',
-      other: 'https://drive.google.com/drive/folders/example'
-    }
-  };
+  // // TODO: Replace with actual API call when backend is ready
+  // const mockCardData = {
+  //   senderName: 'John',
+  //   recipientName: 'Jane',
+  //   memories: [
+  //     {
+  //       id: 1,
+  //       image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=600&fit=crop',
+  //       caption: 'Our first date at the coffee shop. I knew you were special from the moment you laughed at my terrible joke! ☕️❤️'
+  //     },
+  //     {
+  //       id: 2,
+  //       image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=600&fit=crop',
+  //       caption: 'That sunset we watched together on the beach. You said it was beautiful, but I was only looking at you. 🌅'
+  //     },
+  //     {
+  //       id: 3,
+  //       image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=600&fit=crop',
+  //       caption: 'When we got caught in the rain and danced anyway. Perfect moments happen in imperfect weather! 🌧️💃'
+  //     }
+  //   ],
+  //   links: {
+  //     song: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC',
+  //     movie: 'https://www.netflix.com/title/70136120',
+  //     other: 'https://drive.google.com/drive/folders/example'
+  //   }
+  // };
+
 
   const handlePinSubmit = async (e) => {
     e.preventDefault();
@@ -51,15 +52,40 @@ const RecipientPage = () => {
     setError('');
 
     try {
-      // TODO: Replace with actual API call when backend is ready
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      if (pin === '1234') {
-        setCardData(mockCardData);
-        setPinEntered(true);
-      } else {
-        setError('Incorrect PIN. Please try again.');
-      }
+      const res= await getGiftCard(hash,pin);
+      if (!res.authenticated) {
+        setError('Invalid PIN. Please try again.');
+        setIsLoading(false);
+        return; 
+      } 
+     
+  const doc = res.doc;
+  console.log("Fetched document:", doc);
+
+  // build frontend-compatible structure
+  const formattedCard = {
+    senderName: doc.name,
+    recipientName: doc.recipient,
+    memories: (doc.image_paths || []).map((path, idx) => ({
+      id: idx + 1,
+      image: path,
+      caption: Array.isArray(doc.image_descriptions)
+        ? doc.image_descriptions[idx] || ''
+        : ''
+    })),
+    links: {
+      song: doc.song_link || null,
+      movie: doc.movie_link || null,
+      other: doc.other_link || null
+    }
+  };
+
+  setCardData(formattedCard);
+  setPinEntered(true);
+  setError('');
+  setIsLoading(false);
+  return;
+
     } catch (err) {
       setError('Something went wrong. Please try again.');
     } finally {
