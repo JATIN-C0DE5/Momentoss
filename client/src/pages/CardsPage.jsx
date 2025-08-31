@@ -77,7 +77,7 @@ const CardsPage = () => {
         return formData.memories.some(memory => memory?.image && memory?.caption);
       case 4:
         // Sweet message is required, links are optional
-        return formData.sweetMessage.trim() !== '';
+        return true;
       default:
         return true;
     }

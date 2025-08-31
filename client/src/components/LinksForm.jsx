@@ -136,8 +136,6 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
 
         
       </div>
-
-      {/* Summary */}
       
     </div>
   </div>
