@@ -61,6 +61,9 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
             <Heart className="w-8 h-8 text-purple-600 mr-3" />
             <h4 className="text-2xl font-bold text-gray-800">
               Special Links
+              <span className="ml-6 px-3 py-1 bg-purple-200 text-purple-800 text-xs font-medium rounded-full">
+              Optional
+            </span>
             </h4>
           </div>
         </div>
