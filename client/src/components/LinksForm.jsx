@@ -49,7 +49,7 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
                
             </p>
             <p className="text-xs text-gray-500">
-              {sweetMessage.length}/500 characters
+              {sweetMessage.length}/2000 characters
             </p>
           </div>
         </div>
