@@ -56,6 +56,7 @@ export default async function createCard(formData) {
         other_link: formData.links.other || null,
         image_descriptions: descriptions,
         image_paths: uploadedUrls,
+        usr_msg: formData.sweetMessage || "",
       }
     );
 

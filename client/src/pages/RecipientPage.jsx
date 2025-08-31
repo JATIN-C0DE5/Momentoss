@@ -12,34 +12,6 @@ const RecipientPage = () => {
   const [error, setError] = useState('');
   const [cardData, setCardData] = useState(null);
 
-  // // TODO: Replace with actual API call when backend is ready
-  // const mockCardData = {
-  //   senderName: 'John',
-  //   recipientName: 'Jane',
-  //   memories: [
-  //     {
-  //       id: 1,
-  //       image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=600&fit=crop',
-  //       caption: 'Our first date at the coffee shop. I knew you were special from the moment you laughed at my terrible joke! ☕️❤️'
-  //     },
-  //     {
-  //       id: 2,
-  //       image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=600&fit=crop',
-  //       caption: 'That sunset we watched together on the beach. You said it was beautiful, but I was only looking at you. 🌅'
-  //     },
-  //     {
-  //       id: 3,
-  //       image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=600&fit=crop',
-  //       caption: 'When we got caught in the rain and danced anyway. Perfect moments happen in imperfect weather! 🌧️💃'
-  //     }
-  //   ],
-  //   links: {
-  //     song: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC',
-  //     movie: 'https://www.netflix.com/title/70136120',
-  //     other: 'https://drive.google.com/drive/folders/example'
-  //   }
-  // };
-
 
   const handlePinSubmit = async (e) => {
     e.preventDefault();
@@ -66,6 +38,7 @@ const RecipientPage = () => {
   const formattedCard = {
     senderName: doc.name,
     recipientName: doc.recipient,
+    msg :doc.usr_msg,
     memories: (doc.image_paths || []).map((path, idx) => ({
       id: idx + 1,
       image: path,
@@ -187,7 +160,7 @@ const RecipientPage = () => {
               </form>
 
               <p className="text-center text-xs text-amber-600 mt-6 font-serif italic">
-                Hint: Try 1234 for demo
+                Hint: Ask the sender 
               </p>
             </div>
           </div>
@@ -310,8 +283,7 @@ const RecipientPage = () => {
           <div className="text-center mb-8 p-6 bg-amber-50 rounded-lg border-2 border-amber-200">
             <div className="space-y-4">
               <p className="text-amber-800 font-serif italic leading-relaxed">
-                "These memories are just the beginning of our story. Every day with you 
-                adds another beautiful chapter to the book of our love."
+                {cardData.msg || "Every moment with you is a treasure I hold close to my heart. Here's to many more memories together."}
               </p>
               <div className="space-y-2">
                 <p className="text-lg text-amber-700 font-serif italic">Forever yours,</p>

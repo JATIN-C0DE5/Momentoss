@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CheckCircle, Heart, Truck, Smartphone, Copy, Download } from 'lucide-react';
 
-const ConfirmationPage = () => {
-  // Simulating useParams since we can't import react-router-dom
-  const {id}=useParams(); 
+import { CheckCircle, Heart, Truck, Smartphone, Copy, Download, MessageCircle } from 'lucide-react';
+
+const ConfirmationPage = ({ orderId }) => {
+  // Use orderId prop instead of useParams
+  const {id}=useParams();
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
-  // TODO: Replace with actual API call to fetch order details when backend is ready
+  // Remove dummy data - these should come from props or API call
   const orderDetails = {
     id: id,
-    customerName: 'John Doe',
-    recipientName: 'Jane Smith',
-    designName: 'Romantic Hearts',
-    numberOfPhotos: 3,
+    customerName: '', // Will be populated from actual order data
+    recipientName: '', // Will be populated from actual order data
+    designName: '', // Will be populated from actual order data
+    numberOfPhotos: 0, // Will be populated from actual order data
     generatedLink: `https://www.momentoss.in/gcard/${id}`,
     estimatedDelivery: '3-5 business days',
     orderDate: new Date().toLocaleDateString()
@@ -45,6 +46,13 @@ const ConfirmationPage = () => {
     }
   };
 
+  const sendToWhatsApp = () => {
+    const message = `Hi! I've just created a memory page on Momentoss. Here's the link: ${orderDetails.generatedLink} 
+    My Name = {Enter Your Name} `;
+    const whatsappUrl = `https://wa.me/+917007886882?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="min-h-screen py-8 px-4 bg-gradient-to-br from-pink-50 to-purple-50">
       <div className="max-w-2xl mx-auto">
@@ -56,31 +64,36 @@ const ConfirmationPage = () => {
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
             Order Confirmed! 🎉
           </h1>
-          
         </div>
 
         {/* Order Details Card */}
         <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-800">Order Details</h2>
+            <h2 className="text-xl font-bold text-gray-800">Card ID : </h2>
             <span className="text-sm text-gray-500">#{orderDetails.id}</span>
           </div>
 
           <div className="space-y-4">
-            <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="text-gray-600">From:</span>
-              <span className="font-medium text-gray-800">{orderDetails.customerName}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="text-gray-600">To:</span>
-              <span className="font-medium text-gray-800">{orderDetails.recipientName}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="text-gray-600">Design:</span>
-              <span className="font-medium text-gray-800">{orderDetails.designName}</span>
-            </div>
+            {orderDetails.customerName && (
+              <div className="flex justify-between py-2 border-b border-gray-100">
+                <span className="text-gray-600">From:</span>
+                <span className="font-medium text-gray-800">{orderDetails.customerName}</span>
+              </div>
+            )}
+            {orderDetails.recipientName && (
+              <div className="flex justify-between py-2 border-b border-gray-100">
+                <span className="text-gray-600">To:</span>
+                <span className="font-medium text-gray-800">{orderDetails.recipientName}</span>
+              </div>
+            )}
+            {orderDetails.designName && (
+              <div className="flex justify-between py-2 border-b border-gray-100">
+                <span className="text-gray-600">Design:</span>
+                <span className="font-medium text-gray-800">{orderDetails.designName}</span>
+              </div>
+            )}
             <div className="flex justify-between py-2">
-              <span className="text-gray-600">Order Date:</span>
+              <span className="text-gray-600">Order Date : </span>
               <span className="font-medium text-gray-800">{orderDetails.orderDate}</span>
             </div>
           </div>
@@ -121,9 +134,9 @@ const ConfirmationPage = () => {
             <h3 className="text-lg font-bold text-gray-800">Your Memory Link</h3>
           </div>
           <p className="text-gray-600 mb-4">
-            send this link to the Seller.
+            Share this link with others or send it to us for processing.
           </p>
-          <div className="flex items-center space-x-2 p-4 bg-white rounded-lg border">
+          <div className="flex items-center space-x-2 p-4 bg-white rounded-lg border mb-4">
             <input
               type="text"
               value={orderDetails.generatedLink}
@@ -141,7 +154,27 @@ const ConfirmationPage = () => {
               {copied ? 'Copied!' : <Copy className="w-4 h-4" />}
             </button>
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={() => window.open(`/gcard/${id}`, '_blank')}
+              className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
+              <Heart className="w-5 h-5 mr-2" />
+              Preview Memory Page
+            </button>
+            
+            <button
+              onClick={sendToWhatsApp}
+              className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Send Link to Us
+            </button>
+          </div>
+          
+          <p className="text-xs text-gray-500 mt-3">
             Keep this link safe - it's the heart of your memory card!
           </p>
         </div>
@@ -187,21 +220,6 @@ const ConfirmationPage = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Preview Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-8 border border-gray-100">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Preview Your Memory Page</h3>
-          <p className="text-gray-600 mb-4">
-            Want to see how your memory page will look? Click the link above or visit it directly!
-          </p>
-          <button
-            onClick={() => window.open(`/gcard/${id}`, '_blank')}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300"
-          >
-            <Heart className="w-5 h-5 mr-2" />
-            Preview Memory Page
-          </button>
         </div>
 
         {/* Contact Support */}

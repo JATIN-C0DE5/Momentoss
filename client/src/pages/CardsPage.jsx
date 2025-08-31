@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import CardGrid from '../components/CardGrid';
 import MemoryUploadForm from '../components/MemoryUploadForm';
 import LinksForm from '../components/LinksForm';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import createCard from "../appwrite/createCrad"
-
 
 const CardsPage = () => {
   const navigate = useNavigate();
@@ -16,21 +15,21 @@ const CardsPage = () => {
     customerNumber: '',
     recipientName: '',
     pin: '',
-    numberOfPhotos: 3,
-    addSongMovie: false,
+    numberOfPhotos: 5, // Fixed to 5, no longer user-controlled
     memories: [],
     links: {
       song: '',
       movie: '',
       other: ''
-    }
+    },
+    sweetMessage: '' // New field for the letter body
   });
 
   const steps = [
     { id: 1, title: 'Choose Design', component: 'design' },
-    { id: 2, title: 'Card Details', component: 'details' },
+    { id: 2, title: 'Basic Details', component: 'details' },
     { id: 3, title: 'Add Memories', component: 'memories' },
-    { id: 4, title: 'Add Links', component: 'links' }
+    { id: 4, title: 'Special', component: 'links' } // Updated title
   ];
 
   const handleNext = () => {
@@ -47,21 +46,6 @@ const CardsPage = () => {
     }
   };
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     // TODO: Replace with actual API call when backend is ready
-  //     console.log('Submitting form data:', formData);
-      
-  //     // Simulate API call
-  //     const mockCardId = 'card_' + Date.now();
-      
-  //     // Navigate to confirmation page
-  //     navigate(`/confirmation/${mockCardId}`);
-  //   } catch (error) {
-  //     console.error('Error creating card:', error);
-  //   }
-  // };
-  // ////////////////////////////////////////
   const handleSubmit = async () => {
     try {
       console.log("Submitting form data:", formData);
@@ -82,10 +66,6 @@ const CardsPage = () => {
     }
   };
 
-  ////////////////////////////////////////////////
-
-
-
   const isStepValid = () => {
     switch (currentStep) {
       case 1:
@@ -93,9 +73,11 @@ const CardsPage = () => {
       case 2:
         return formData.customerName && formData.recipientName && formData.pin;
       case 3:
-        return formData.memories.length === formData.numberOfPhotos;
+        // At least one memory should be uploaded, but not mandatory to fill all 5
+        return formData.memories.some(memory => memory?.image && memory?.caption);
       case 4:
-        return !formData.addSongMovie || formData.links.song || formData.links.movie || formData.links.other;
+        // Sweet message is required, links are optional
+        return formData.sweetMessage.trim() !== '';
       default:
         return true;
     }
@@ -104,40 +86,50 @@ const CardsPage = () => {
   return (
     <div className="min-h-screen py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Progress Indicator */}
+        {/* Updated Progress Indicator - More visually appealing horizontal bars */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-6">
             {steps.map((step, index) => (
               <div
                 key={step.id}
                 className={`flex items-center ${index < steps.length - 1 ? 'flex-1' : ''}`}
               >
+                {/* Circular indicator without numbers */}
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
+                  className={`w-4 h-4 rounded-full flex items-center justify-center transition-all duration-300 ${
                     step.id <= currentStep
-                      ? 'bg-pink-500 text-white'
-                      : 'bg-gray-200 text-gray-500'
+                      ? 'bg-gradient-to-r from-pink-500 to-purple-600 shadow-lg scale-125'
+                      : 'bg-gray-300'
                   }`}
                 >
-                  {step.id < currentStep ? (
-                    <Check className="w-5 h-5" />
-                  ) : (
-                    step.id
-                  )}
                 </div>
+                {/* Progress bar between steps */}
                 {index < steps.length - 1 && (
-                  <div
-                    className={`flex-1 h-1 mx-2 ${
-                      step.id < currentStep ? 'bg-pink-500' : 'bg-gray-200'
-                    }`}
-                  />
+                  <div className="flex-1 mx-4 relative">
+                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full transition-all duration-500 ease-out ${
+                          step.id < currentStep 
+                            ? 'bg-gradient-to-r from-pink-500 to-purple-600 w-full' 
+                            : 'w-0'
+                        }`}
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
             ))}
           </div>
-          <h2 className="text-2xl font-bold text-center text-gray-800">
-            {steps[currentStep - 1].title}
-          </h2>
+          
+          {/* Step title with progress indicator */}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">
+              {steps[currentStep - 1].title}
+            </h2>
+            <p className="text-gray-500 text-sm">
+              Step {currentStep} of {steps.length}
+            </p>
+          </div>
         </div>
 
         {/* Step Content */}
@@ -214,54 +206,8 @@ const CardsPage = () => {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Number of Photos/Memories
-                </label>
-                <div className="flex items-center space-x-4">
-                  <button
-                    onClick={() =>
-                      setFormData({
-                        ...formData,
-                        numberOfPhotos: Math.max(1, formData.numberOfPhotos - 1)
-                      })
-                    }
-                    className="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold hover:bg-pink-600"
-                  >
-                    -
-                  </button>
-                  <span className="text-2xl font-bold text-gray-800 w-8 text-center">
-                    {formData.numberOfPhotos}
-                  </span>
-                  <button
-                    onClick={() =>
-                      setFormData({
-                        ...formData,
-                        numberOfPhotos: Math.min(5, formData.numberOfPhotos + 1)
-                      })
-                    }
-                    className="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold hover:bg-pink-600"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              {/* <div>
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={formData.addSongMovie}
-                    onChange={(e) =>
-                      setFormData({ ...formData, addSongMovie: e.target.checked })
-                    }
-                    className="w-5 h-5 text-pink-500 focus:ring-pink-500 rounded"
-                  />
-                  <span className="text-sm font-medium text-gray-700">
-                    Add song, movie, or other special links
-                  </span>
-                </label>
-              </div> */}
+              {/* Removed: Number of photos selector and addSongMovie checkbox */}
+              {/* Now fixed to 5 photos maximum, user can upload as many as they want up to 5 */}
             </div>
           )}
 
@@ -278,8 +224,12 @@ const CardsPage = () => {
           {currentStep === 4 && (
             <LinksForm
               links={formData.links}
+              sweetMessage={formData.sweetMessage}
               onLinksChange={(links) =>
                 setFormData({ ...formData, links })
+              }
+              onSweetMessageChange={(message) =>
+                setFormData({ ...formData, sweetMessage: message })
               }
             />
           )}
@@ -290,10 +240,10 @@ const CardsPage = () => {
           <button
             onClick={handlePrev}
             disabled={currentStep === 1}
-            className={`flex items-center px-6 py-3 rounded-full font-medium transition-colors ${
+            className={`flex items-center px-6 py-3 rounded-full font-medium transition-all duration-200 ${
               currentStep === 1
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:shadow-md'
             }`}
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -303,9 +253,9 @@ const CardsPage = () => {
           <button
             onClick={handleNext}
             disabled={!isStepValid()}
-            className={`flex items-center px-6 py-3 rounded-full font-medium transition-colors ${
+            className={`flex items-center px-6 py-3 rounded-full font-medium transition-all duration-200 ${
               isStepValid()
-                ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:shadow-lg'
+                ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:shadow-lg hover:scale-105'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
