@@ -40,8 +40,9 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
             onChange={(e) => onSweetMessageChange(e.target.value)}
             rows={6}
             className="w-full px-4 py-3 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none shadow-sm"
-            placeholder="This card is filled with our beautiful memories together. Each photo tells a story of love, laughter, and the special moments we've shared...
-"
+            placeholder="Default Message : These memories are just the beginning of our story. Every day with you adds another beautiful chapter to the book of our love."
+
+
           />
           <div className="flex justify-between items-center">
             <p className="text-xs text-gray-500">
