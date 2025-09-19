@@ -11,58 +11,46 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
   };
 
   return (
-    <div className="space-y-8">
-      {/* Header Section */}
-      {/* <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">
-          Add Your Personal Touch
-        </h3>
-        <p className="text-gray-600">
-          Write a heartfelt message and optionally add special links to make this card even more memorable
-        </p>
-      </div> */}
-
+    <div className="space-y-10">
       {/* Sweet Message Section - Primary focus */}
-      <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl p-6 border-2 border-pink-200">
+      <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 border-2 border-red-200">
         <div className="flex items-center mb-4">
-          <MessageCircle className="w-8 h-8 text-purple-600 mr-3" />
-          <h4 className="text-2xl font-bold text-gray-800">
+          <MessageCircle className="w-8 h-8 text-red-600 mr-3" />
+          <h4 className="text-2xl font-bold text-amber-900">
             Sweet Message
           </h4>
         </div>
         
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-amber-800">
             Write your heartfelt message to the recipient
           </label>
           <textarea
             value={sweetMessage}
             onChange={(e) => onSweetMessageChange(e.target.value)}
             rows={6}
-            className="w-full px-4 py-3 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none shadow-sm"
+            className="w-full px-4 py-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none shadow-sm"
             placeholder="Default Message : These memories are just the beginning of our story. Every day with you adds another beautiful chapter to the book of our love."
-
-
           />
           <div className="flex justify-between items-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-amber-700">
                
             </p>
-            <p className="text-xs text-gray-500">
-              {sweetMessage.length}/2000 characters
+            <p className="text-xs text-amber-700">
+              {sweetMessage.length}/5000 characters
             </p>
           </div>
         </div>
       </div>
 
       {/* Links Section - Enclosed in beautiful container */}
-      <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-8 border-2 border-purple-200 shadow-lg">
+      <div className="bg-gradient-to-br from-yellow-50 to-red-50 rounded-xl p-8 border-2 border-red-200 shadow-lg">
         <div className="text-center mb-3">
           <div className="flex items-center mb-4">
-            <Heart className="w-8 h-8 text-purple-600 mr-3" />
-            <h4 className="text-2xl font-bold text-gray-800">
+            <Heart className="w-8 h-8 text-red-600 mr-3" />
+            <h4 className="text-2xl font-bold text-amber-900">
               Special Links
-              <span className="ml-6 px-3 py-1 bg-purple-200 text-purple-800 text-xs font-medium rounded-full">
+              <span className="ml-6 px-3 py-1 bg-red-200 text-red-800 text-xs font-medium rounded-full">
               Optional
             </span>
             </h4>
@@ -70,7 +58,7 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
         </div>
 
         <div className="space-y-6">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-amber-800">
             Add links to songs, movies, or something
           </label>
 
@@ -80,7 +68,7 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
             <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-3">
               <Music className="w-5 h-5 text-white" />
             </div>
-            <h5 className="text-lg font-bold text-gray-800">Dedicate a Song</h5>
+            <h5 className="text-lg font-bold text-amber-900">Dedicate a Song</h5>
           </div>
           <input
             type="url"
@@ -100,7 +88,7 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
             <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center mr-3">
               <Film className="w-5 h-5 text-white" />
             </div>
-            <h5 className="text-lg font-bold text-gray-800">Dedicate a Movie/Video</h5>
+            <h5 className="text-lg font-bold text-amber-900">Dedicate a Movie/Video</h5>
           </div>
           <input
             type="url"
@@ -120,7 +108,7 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
             <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
               <Link className="w-5 h-5 text-white" />
             </div>
-            <h5 className="text-lg font-bold text-gray-800">Other Special Link</h5>
+            <h5 className="text-lg font-bold text-amber-900">Other Special Link</h5>
           </div>
           <input
             type="url"
@@ -138,7 +126,7 @@ const LinksForm = ({ links, sweetMessage, onLinksChange, onSweetMessageChange })
       </div>
       
     </div>
-  </div>
+    </div>
   );
 };
 

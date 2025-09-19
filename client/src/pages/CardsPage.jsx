@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CardGrid from '../components/CardGrid';
 import MemoryUploadForm from '../components/MemoryUploadForm';
 import LinksForm from '../components/LinksForm';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Heart } from 'lucide-react';
 import createCard from "../appwrite/createCrad"
 
 const CardsPage = () => {
@@ -26,10 +26,10 @@ const CardsPage = () => {
   });
 
   const steps = [
-    { id: 1, title: 'Choose Design', component: 'design' },
-    { id: 2, title: 'Basic Details', component: 'details' },
-    { id: 3, title: 'Add Memories', component: 'memories' },
-    { id: 4, title: 'Special', component: 'links' } // Updated title
+    { id: 1, title: 'Choose Design', component: 'design'},
+    { id: 2, title: 'Basic Details', component: 'details'},
+    { id: 3, title: 'Add Memories', component: 'memories'},
+    { id: 4, title: 'Special Touch', component: 'links'}
   ];
 
   const handleNext = () => {
@@ -84,56 +84,29 @@ const CardsPage = () => {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Updated Progress Indicator - More visually appealing horizontal bars */}
+    <div className="min-h-screen py-8 px-4 bg-gradient-to-br from-yellow-50 via-red-50 to-yellow-50">
+      <div className="">
+        
+        {/* New 4-Segment Progress Bar */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            {steps.map((step, index) => (
-              <div
-                key={step.id}
-                className={`flex items-center ${index < steps.length - 1 ? 'flex-1' : ''}`}
-              >
-                {/* Circular indicator without numbers */}
+          <div className="max-w-4xl mx-auto">
+            <div className="flex gap-2">
+              {steps.map((step) => (
                 <div
-                  className={`w-4 h-4 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  key={step.id}
+                  className={`flex-1 h-3 rounded-full transition-all duration-700 ease-out shadow-lg ${
                     step.id <= currentStep
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-600 shadow-lg scale-125'
-                      : 'bg-gray-300'
+                      ? 'bg-gradient-to-r from-red-500 to-red-400'
+                      : 'bg-red-100'
                   }`}
-                >
-                </div>
-                {/* Progress bar between steps */}
-                {index < steps.length - 1 && (
-                  <div className="flex-1 mx-4 relative">
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full transition-all duration-500 ease-out ${
-                          step.id < currentStep 
-                            ? 'bg-gradient-to-r from-pink-500 to-purple-600 w-full' 
-                            : 'w-0'
-                        }`}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          
-          {/* Step title with progress indicator */}
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              {steps[currentStep - 1].title}
-            </h2>
-            <p className="text-gray-500 text-sm">
-              Step {currentStep} of {steps.length}
-            </p>
+                />
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Step Content */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-8">
+        <div className="bg-yellow-50/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 mb-12 border border-red-200/30">
           {currentStep === 1 && (
             <CardGrid
               selectedDesign={formData.selectedDesign}
@@ -144,70 +117,82 @@ const CardsPage = () => {
           )}
 
           {currentStep === 2 && (
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  value={formData.customerName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, customerName: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  placeholder="Enter your name"
-                />
+            <div className="space-y-8">
+              <div className="text-center mb-8">
+                <div className="flex items-center justify-center mb-4">
+                  <Heart className="w-8 h-8 text-red-600 mr-3 animate-pulse" fill="currentColor" />
+                  <h3 className="text-3xl font-bold text-amber-900">Basic Details</h3>
+                  <Heart className="w-8 h-8 text-red-600 ml-3 animate-pulse" fill="currentColor" />
+                </div>
+                <p className="text-amber-800">Help us personalize your memory card perfectly</p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Phone Number
-                </label>
-                <input
-                  type="number"
-                  value={formData.customerNumber}
-                  onChange={(e) =>
-                    setFormData({ ...formData, customerNumber: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  placeholder="Enter your phone number"
-                />
-              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-lg font-bold text-amber-900 mb-3">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.customerName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, customerName: e.target.value })
+                      }
+                      className="w-full px-6 py-4 border-2 border-red-200 rounded-2xl focus:ring-4 focus:ring-red-200 focus:border-red-500 bg-white/80 text-amber-900 font-medium shadow-lg transition-all duration-300"
+                      placeholder="Enter your name"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Recipient's Name
-                </label>
-                <input
-                  type="text"
-                  value={formData.recipientName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, recipientName: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  placeholder="Enter recipient's name"
-                />
-              </div>
+                  <div>
+                    <label className="block text-lg font-bold text-amber-900 mb-3">
+                      Your Phone Number
+                    </label>
+                    <input
+                      type="number"
+                      value={formData.customerNumber}
+                      onChange={(e) =>
+                        setFormData({ ...formData, customerNumber: e.target.value })
+                      }
+                      className="w-full px-6 py-4 border-2 border-red-200 rounded-2xl focus:ring-4 focus:ring-red-200 focus:border-red-500 bg-white/80 text-amber-900 font-medium shadow-lg transition-all duration-300"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  PIN (4 digits)
-                </label>
-                <input
-                  type="password"
-                  maxLength="4"
-                  value={formData.pin}
-                  onChange={(e) =>
-                    setFormData({ ...formData, pin: e.target.value })
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  placeholder="Enter 4-digit PIN"
-                />
-              </div>
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-lg font-bold text-amber-900 mb-3">
+                      Recipient's Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.recipientName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, recipientName: e.target.value })
+                      }
+                      className="w-full px-6 py-4 border-2 border-red-200 rounded-2xl focus:ring-4 focus:ring-red-200 focus:border-red-500 bg-white/80 text-amber-900 font-medium shadow-lg transition-all duration-300"
+                      placeholder="Enter recipient's name"
+                    />
+                  </div>
 
-              {/* Removed: Number of photos selector and addSongMovie checkbox */}
-              {/* Now fixed to 5 photos maximum, user can upload as many as they want up to 5 */}
+                  <div>
+                    <label className="block text-lg font-bold text-amber-900 mb-3">
+                      PIN (4 digits)
+                    </label>
+                    <input
+                      type="password"
+                      maxLength="4"
+                      value={formData.pin}
+                      onChange={(e) =>
+                        setFormData({ ...formData, pin: e.target.value })
+                      }
+                      className="w-full px-6 py-4 border-2 border-red-200 rounded-2xl focus:ring-4 focus:ring-red-200 focus:border-red-500 bg-white/80 text-amber-900 font-medium shadow-lg transition-all duration-300"
+                      placeholder="Enter 4-digit PIN"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
@@ -236,31 +221,31 @@ const CardsPage = () => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <button
             onClick={handlePrev}
             disabled={currentStep === 1}
-            className={`flex items-center px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+            className={`flex items-center px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg ${
               currentStep === 1
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:shadow-md'
+                ? 'bg-red-200 text-red-400 cursor-not-allowed'
+                : 'bg-white text-amber-900 hover:bg-red-50 hover:shadow-xl hover:scale-105 border-2 border-red-200'
             }`}
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <ArrowLeft className="w-6 h-6 mr-3" />
             Previous
           </button>
 
           <button
             onClick={handleNext}
             disabled={!isStepValid()}
-            className={`flex items-center px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+            className={`flex items-center px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg ${
               isStepValid()
-                ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:shadow-lg hover:scale-105'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                ? 'bg-gradient-to-r from-red-600 to-red-400 text-yellow-50 hover:shadow-xl hover:scale-105 shadow-red-600/30'
+                : 'bg-red-200 text-red-400 cursor-not-allowed'
             }`}
           >
-            {currentStep === steps.length ? 'Create Card' : 'Next'}
-            <ArrowRight className="w-5 h-5 ml-2" />
+            {currentStep === steps.length ? 'Create' : 'Next'}
+            <ArrowRight className="w-6 h-6 ml-3" />
           </button>
         </div>
       </div>

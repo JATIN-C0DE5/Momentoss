@@ -21,98 +21,92 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen py-12 px-4 bg-gradient-to-br from-yellow-50 via-red-50 to-yellow-50">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Heart className="w-8 h-8 text-white" />
+        <div className="text-center mb-16">
+          <div className="relative inline-block mb-8">
+            <div className="w-20 h-20 bg-gradient-to-r from-red-600 to-red-400 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-red-600/30">
+              <Heart className="w-10 h-10 text-yellow-50" fill="currentColor" />
+            </div>
+            <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-red-400 to-red-300 rounded-full animate-pulse"></div>
           </div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+          <h1 className="text-5xl font-bold text-amber-900 mb-6">
             We're Here to Help
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-amber-800 max-w-2xl mx-auto leading-relaxed">
             Have questions about your memory card or need support? 
             Our team is ready to assist you with love and care.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information - Now Full Width */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          {/* Contact Information */}
+          <div className="bg-yellow-50/80 backdrop-blur-sm rounded-3xl shadow-2xl p-10 border border-red-200/30">
+            <h2 className="text-3xl font-bold text-amber-900 mb-8 flex items-center">
+              <Heart className="w-8 h-8 text-red-600 mr-3" fill="currentColor" />
               Get in Touch
             </h2>
             
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-pink-500" />
+            <div className="space-y-8">
+              <div className="flex items-start space-x-6 p-4 bg-white/70 rounded-2xl shadow-lg border border-red-200/20">
+                <div className="w-14 h-14 bg-gradient-to-r from-red-100 to-red-200 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                  <Mail className="w-7 h-7 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-1">Email Us</h3>
-                  <p className="text-gray-600">momentossofficial@gmail.com</p>
-                  <p className="text-sm text-gray-500">Mon-Sat, 9 AM - 9 PM IST</p>
+                  <h3 className="font-bold text-amber-900 text-lg mb-2">Email Us</h3>
+                  <p className="text-amber-800 font-medium">momentossofficial@gmail.com</p>
+                  <p className="text-sm text-amber-700 mt-1">Mon-Sat, 9 AM - 9 PM IST</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-blue-500" />
+              <div className="flex items-start space-x-6 p-4 bg-white/70 rounded-2xl shadow-lg border border-red-200/20">
+                <div className="w-14 h-14 bg-gradient-to-r from-red-100 to-red-200 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                  <Phone className="w-7 h-7 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-1">Call Us</h3>
-                  <p className="text-gray-600">+91 7007886882</p>
-                  <p className="text-sm text-gray-500">Mon-Sat, 9 AM - 9 PM IST</p>
+                  <h3 className="font-bold text-amber-900 text-lg mb-2">Call Us</h3>
+                  <p className="text-amber-800 font-medium">+91 7007886882</p>
+                  <p className="text-sm text-amber-700 mt-1">Mon-Sat, 9 AM - 9 PM IST</p>
                 </div>
               </div>
 
-              {/* <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-green-500" />
+              <div className="flex items-start space-x-6 p-4 bg-white/70 rounded-2xl shadow-lg border border-red-200/20">
+                <div className="w-14 h-14 bg-gradient-to-r from-red-100 to-red-200 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                  <Clock className="w-7 h-7 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-1">Visit Us</h3>
-                  <p className="text-gray-600">Greater Noida, Uttar Pradesh</p>
-                  <p className="text-sm text-gray-500">India</p>
-                </div>
-              </div> */}
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-6 h-6 text-purple-500" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-800 mb-1">Response Time</h3>
-                  <p className="text-gray-600">Average: 3 hours</p>
-                  <p className="text-sm text-gray-500">Maximum: 24 hours</p>
+                  <h3 className="font-bold text-amber-900 text-lg mb-2">Response Time</h3>
+                  <p className="text-amber-800 font-medium">Average: 3 hours</p>
+                  <p className="text-sm text-amber-700 mt-1">Maximum: 24 hours</p>
                 </div>
               </div>
             </div>
 
             {/* Contact CTA */}
-            <div className="mt-8 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">
+            <div className="mt-10 p-8 bg-gradient-to-r from-red-50 to-red-100 rounded-2xl border-2 border-red-200/50 shadow-inner">
+              <h3 className="text-xl font-bold text-amber-900 mb-3 flex items-center">
+                <Heart className="w-6 h-6 text-red-600 mr-2" fill="currentColor" />
                 Need Immediate Help?
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-amber-800 mb-6 leading-relaxed">
                 For urgent matters or quick questions, reach out to us directly via WhatsApp or phone.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="https://wa.me/917007886882?text=Hi!%20I%20need%20help%20with%20my%20Momentoss%20memory%20card.%20Could%20you%20please%20assist%20me?"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition-colors"
+                  className="flex-1 inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-green-600 to-green-500 text-white font-bold rounded-2xl hover:from-green-700 hover:to-green-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <MessageCircle className="w-5 h-5 mr-3" />
                   WhatsApp Support
                 </a>
                 <a
                   href="tel:+917007886882"
-                  className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-colors"
+                  className="flex-1 inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-red-600 to-red-500 text-white font-bold rounded-2xl hover:from-red-700 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
-                  <Phone className="w-4 h-4 mr-2" />
+                  <Phone className="w-5 h-5 mr-3" />
                   Call Now
                 </a>
               </div>
@@ -120,10 +114,10 @@ const ContactPage = () => {
           </div>
 
           {/* FAQs */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <div className="flex items-center mb-6">
-              <HelpCircle className="w-6 h-6 text-indigo-500 mr-3" />
-              <h2 className="text-2xl font-bold text-gray-800">
+          <div className="bg-yellow-50/80 backdrop-blur-sm rounded-3xl shadow-2xl p-10 border border-red-200/30">
+            <div className="flex items-center mb-8">
+              <HelpCircle className="w-8 h-8 text-red-600 mr-4" />
+              <h2 className="text-3xl font-bold text-amber-900">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -131,57 +125,44 @@ const ContactPage = () => {
             <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <details key={index} className="group">
-                  <summary className="flex justify-between items-center cursor-pointer p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                    <span className="font-medium text-gray-800 pr-4">
+                  <summary className="flex justify-between items-center cursor-pointer p-6 bg-white/70 rounded-2xl hover:bg-white/90 transition-all duration-300 shadow-lg border border-red-200/20">
+                    <span className="font-bold text-amber-900 pr-4">
                       {faq.question}
                     </span>
-                    <div className="w-5 h-5 text-gray-500 transform group-open:rotate-180 transition-transform flex-shrink-0">
-                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <div className="w-6 h-6 text-red-600 transform group-open:rotate-180 transition-transform duration-300 flex-shrink-0">
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
                     </div>
                   </summary>
-                  <div className="mt-2 px-4 pb-4 text-gray-600 leading-relaxed">
+                  <div className="mt-4 px-6 pb-6 text-amber-800 leading-relaxed bg-red-50/50 rounded-xl ml-2 mr-2">
                     {faq.answer}
                   </div>
                 </details>
               ))}
             </div>
 
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <p className="text-blue-800 text-sm">
-                <strong>Didn't find your answer?</strong> Contact us directly via WhatsApp or phone for personalized support!
+            <div className="mt-8 p-6 bg-gradient-to-r from-red-50 to-red-100 rounded-2xl border border-red-200/50 shadow-inner">
+              <p className="text-amber-800 text-sm leading-relaxed">
+                <strong className="text-red-700">Didn't find your answer?</strong> Contact us directly via WhatsApp or phone for personalized support!
               </p>
             </div>
-
-            {/* Additional Help Section */}
-            {/* <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-              <h4 className="font-semibold text-yellow-800 mb-2">
-                Popular Support Topics:
-              </h4>
-              <ul className="text-sm text-yellow-700 space-y-1">
-                <li>• Order tracking and shipping updates</li>
-                <li>• NFC card troubleshooting</li>
-                <li>• Custom design requests</li>
-                <li>• Refund and return policies</li>
-              </ul>
-            </div> */}
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-12 text-white">
-          <h2 className="text-3xl font-bold mb-4">
+        <div className="text-center mt-20 bg-gradient-to-r from-red-600 via-red-500 to-red-400 rounded-3xl p-16 text-white shadow-2xl shadow-red-600/30 border border-red-400/30">
+          <h2 className="text-4xl font-bold mb-6">
             Ready to Create Your Memory Card?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-10 opacity-95 leading-relaxed">
             Start building beautiful memories that last forever
           </p>
           <a
             href="/cards"
-            className="inline-flex items-center px-8 py-4 bg-white text-pink-500 font-bold rounded-full text-lg hover:shadow-lg transition-all hover:scale-105"
+            className="inline-flex items-center px-10 py-5 bg-white text-red-600 font-bold rounded-full text-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 shadow-xl"
           >
-            <Heart className="w-6 h-6 mr-2" />
+            <Heart className="w-7 h-7 mr-3" fill="currentColor" />
             Create Your Card
           </a>
         </div>
